@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const niches = ['finance', 'education', 'saas', 'ecommerce', 'brick-and-mortar'];
+---
+<BaseLayout title="Blog — Insights & Strategy" description="Practical insights on business growth, AI adoption, and digital strategy from the Lucentra team.">
+
+  <section class="blog-hero">
+    <div class="container">
+      <span class="eyebrow">Our Blog</span>
+      <h1>Insights for businesses<br/>that want to grow.</h1>
+      <p>Practical thinking on digital strategy, AI adoption, marketing, and the systems that drive real business growth.</p>
+    </div>
+  </section>
+
+  <section class="blog-listing">
+    <div class="container">
+      <!-- Filter tabs -->
+      <div class="blog-filters" id="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {niches.map(n => (
+          <button class="filter-btn" data-filter={n}>
+            {n.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+          </button>
+        ))}
+      </div>
+
+      <div class="blog-grid" id="blog-grid">
+        {posts.map(post => (
+          <div class="blog-item" data-niche={post.data.niche}>
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.id.replace('.md', '')}
+              niche={post.data.niche}
+              pubDate={post.data.pubDate}
+              author={post.data.author}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.blog-hero {
+  padding: 72px 0 64px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+
+.blog-hero h1 {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.blog-hero p {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0;
+}
+
+.blog-listing { padding: 56px 0 96px; }
+
+.blog-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  background: white;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: capitalize;
+}
+
+.filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+.filter-btn.active { background: var(--teal); border-color: var(--teal); color: white; }
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.blog-item.hidden { display: none; }
+
+@media (max-width: 900px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .blog-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.blog-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = (btn as HTMLElement).dataset.filter;
+      items.forEach(item => {
+        const niche = (item as HTMLElement).dataset.niche;
+        item.classList.toggle('hidden', filter !== 'all' && niche !== filter);
+      });
+    });
+  });
+</script>

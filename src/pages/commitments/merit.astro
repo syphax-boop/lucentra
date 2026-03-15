@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+---
+<BaseLayout title="Merit — Lucentra Commitments" description="Merit means that every recommendation we make, every strategy we propose, and every result we deliver must prove its worth. We don't hide behind jargon or complexity. If we suggest something, it's because the evidence and logic support it — and we'll show you exactly why.">
+
+  <section class="commitment-hero">
+    <div class="container">
+      <a href="/" class="back-link">← Home</a>
+      <span class="eyebrow">Our Commitments</span>
+      <h1>Merit</h1>
+      <p class="commitment-sub">We earn our place through results — not promises, not presentations, not credentials alone.</p>
+    </div>
+  </section>
+
+  <section class="commitment-body">
+    <div class="container">
+      <div class="commitment-content">
+        <div class="commitment-main">
+          <p class="lead">Merit means that every recommendation we make, every strategy we propose, and every result we deliver must prove its worth. We don't hide behind jargon or complexity. If we suggest something, it's because the evidence and logic support it — and we'll show you exactly why.</p>
+          <p>This commitment shapes how we price, how we communicate, and how we measure success. We tie our work to outcomes wherever possible, because we believe that's the only honest way to work with a client.</p>
+        </div>
+
+        <div class="commitment-qa">
+          <h2>What this means in practice</h2>
+          <div class="qa-list">
+            <div class="qa-item">
+              <h3>How do you ensure quality?</h3>
+              <p>Every client engagement begins with a diagnostic phase where we establish baselines and define what success actually looks like. We don't start executing until we have a clear picture of what we're trying to move.</p>
+            </div>
+            <div class="qa-item">
+              <h3>What happens if something doesn't work?</h3>
+              <p>We tell you immediately and honestly. Then we adjust. The worst thing we can do for a client relationship is defend a strategy that isn't working. We'd rather admit the problem and fix it than protect our ego.</p>
+            </div>
+            <div class="qa-item">
+              <h3>merit0</h3>
+              <p>merit1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm />
+
+</BaseLayout>
+
+<style>
+.commitment-hero {
+  padding: 72px 0 64px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--teal); }
+.commitment-hero .eyebrow { color: var(--teal-mid); }
+.commitment-hero h1 {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  color: white;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.commitment-sub { font-size: 20px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0; }
+
+.commitment-body { padding: var(--section-py) 0; }
+.commitment-content { max-width: 800px; }
+
+.lead {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--near-black);
+  font-weight: 500;
+  margin-bottom: 1.5em;
+}
+
+.commitment-qa { margin-top: 64px; }
+.commitment-qa h2 { font-size: 28px; font-weight: 800; margin-bottom: 32px; }
+
+.qa-list { display: flex; flex-direction: column; gap: 0; }
+.qa-item {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+.qa-item:last-child { border-bottom: 1px solid var(--border); }
+.qa-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.qa-item p { color: var(--text-muted); font-size: 16px; margin: 0; }
+</style>

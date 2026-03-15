@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const nichePosts = allPosts
+  .filter(p => p.data.niche === 'education')
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
+---
+<BaseLayout title="Education — Lucentra Industries" description="Modern learners have more choices than ever. The institutions that win aren't necessarily the most prestigious — they're the most accessible, engaging, and digitally fluent. We help you become that institution.">
+
+  <!-- NICHE HERO -->
+  <section class="niche-hero">
+    <div class="container">
+      <div class="niche-hero-inner">
+        <a href="/industries" class="back-link">← All Industries</a>
+        <span class="eyebrow">Education</span>
+        <h1>Educational institutions that students choose — and stay with.</h1>
+        <p class="niche-sub">Modern learners have more choices than ever. The institutions that win aren't necessarily the most prestigious — they're the most accessible, engaging, and digitally fluent. We help you become that institution.</p>
+        <a href="#contact" class="btn btn-primary">Start a Conversation →</a>
+      </div>
+    </div>
+    <div class="niche-hero-bg" aria-hidden="true"></div>
+  </section>
+
+  <!-- VISION -->
+  <section class="vision-section">
+    <div class="container">
+      <div class="vision-grid">
+        <div class="vision-text">
+          <span class="eyebrow">Our Vision</span>
+          <h2>Education is a trust business. Digital tools amplify that trust.</h2>
+          <p>Whether you run a university, a vocational training center, or an online learning platform, the fundamentals are the same: you need to attract the right students, deliver an experience that earns loyalty, and build a brand that stands out in a crowded market. Lucentra helps education businesses modernize every stage of the student journey.</p>
+        </div>
+        <div class="vision-services">
+          <h3>What we do in this space</h3>
+          <ul class="services-list">
+            <li><span class="check">✓</span> Student acquisition and enrollment optimization</li>
+            <li><span class="check">✓</span> LMS and digital learning infrastructure</li>
+            <li><span class="check">✓</span> Retention systems and early intervention tools</li>
+            <li><span class="check">✓</span> Brand positioning and content marketing</li>
+            <li><span class="check">✓</span> Alumni and community engagement programs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="insights-section">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <span class="eyebrow">Our Insights</span>
+          <h2>What we're thinking about in Education.</h2>
+        </div>
+        <a href="/blog" class="btn btn-outline">All articles →</a>
+      </div>
+
+      {nichePosts.length > 0 ? (
+        <div class="insights-grid">
+          {nichePosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              niche={post.data.niche}
+              pubDate={post.data.pubDate}
+              author={post.data.author}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="no-posts">
+          <p>New articles coming soon. <a href="/blog">Browse all insights →</a></p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <ContactForm niche="education" />
+
+</BaseLayout>
+
+<style>
+.niche-hero {
+  position: relative;
+  padding: 80px 0 72px;
+  overflow: hidden;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+}
+
+.niche-hero-inner { max-width: 700px; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--teal); }
+
+.niche-hero h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  margin-top: 8px;
+  line-height: 1.1;
+}
+
+.niche-sub {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  max-width: 560px;
+}
+
+.niche-hero-bg {
+  position: absolute;
+  top: -100px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(10,171,171,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.vision-section { padding: var(--section-py) 0; }
+
+.vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.vision-text h2 {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.vision-text p { color: var(--text-muted); font-size: 16px; line-height: 1.7; }
+
+.vision-services h3 {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.services-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+.services-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text);
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.check {
+  color: var(--teal);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.insights-section { background: var(--bg-alt); padding: var(--section-py) 0; }
+
+.section-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.section-header-row h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; margin-top: 8px; }
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.no-posts {
+  padding: 48px;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+}
+
+.no-posts a { color: var(--teal); }
+
+@media (max-width: 900px) {
+  .vision-grid { grid-template-columns: 1fr; gap: 48px; }
+  .insights-grid { grid-template-columns: 1fr; }
+}
+</style>

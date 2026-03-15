@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+---
+<BaseLayout title="Opportunity — Lucentra Commitments" description="Opportunity is about who gets to grow. For too long, the best consulting, the most sophisticated marketing tools, and the clearest strategic thinking have been the domain of large enterprises with large budgets. We exist to change that ratio.">
+
+  <section class="commitment-hero">
+    <div class="container">
+      <a href="/" class="back-link">← Home</a>
+      <span class="eyebrow">Our Commitments</span>
+      <h1>Opportunity</h1>
+      <p class="commitment-sub">We believe access to great strategy and technology shouldn't be reserved for the biggest companies.</p>
+    </div>
+  </section>
+
+  <section class="commitment-body">
+    <div class="container">
+      <div class="commitment-content">
+        <div class="commitment-main">
+          <p class="lead">Opportunity is about who gets to grow. For too long, the best consulting, the most sophisticated marketing tools, and the clearest strategic thinking have been the domain of large enterprises with large budgets. We exist to change that ratio.</p>
+          <p>We work with businesses at different stages — from early-growth companies to established SMBs to institutions looking to modernize. We structure our work so that real, transformative support is accessible — not just to the companies that can afford a Big Four retainer.</p>
+        </div>
+
+        <div class="commitment-qa">
+          <h2>What this means in practice</h2>
+          <div class="qa-list">
+            <div class="qa-item">
+              <h3>Who do you work with?</h3>
+              <p>We work with businesses across a range of sizes and stages, primarily in our five core industries. What matters more than size is readiness — the willingness to change, the commitment to execute, and the clarity to define what success means.</p>
+            </div>
+            <div class="qa-item">
+              <h3>How do you make your services accessible?</h3>
+              <p>We offer different engagement models depending on what a business needs and where they are in their growth journey. Not every client needs a full-scope engagement. We can start small, prove value, and grow from there.</p>
+            </div>
+            <div class="qa-item">
+              <h3>opportunity0</h3>
+              <p>opportunity1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm />
+
+</BaseLayout>
+
+<style>
+.commitment-hero {
+  padding: 72px 0 64px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--teal); }
+.commitment-hero .eyebrow { color: var(--teal-mid); }
+.commitment-hero h1 {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  color: white;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.commitment-sub { font-size: 20px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0; }
+
+.commitment-body { padding: var(--section-py) 0; }
+.commitment-content { max-width: 800px; }
+
+.lead {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--near-black);
+  font-weight: 500;
+  margin-bottom: 1.5em;
+}
+
+.commitment-qa { margin-top: 64px; }
+.commitment-qa h2 { font-size: 28px; font-weight: 800; margin-bottom: 32px; }
+
+.qa-list { display: flex; flex-direction: column; gap: 0; }
+.qa-item {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+.qa-item:last-child { border-bottom: 1px solid var(--border); }
+.qa-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.qa-item p { color: var(--text-muted); font-size: 16px; margin: 0; }
+</style>

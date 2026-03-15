@@ -1,17 +1,447 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { getCollection } from 'astro:content';
 
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
+
+const industries = [
+  { label: 'Finance', href: '/industries/finance', desc: 'Modernize systems, grow client base.' },
+  { label: 'Education', href: '/industries/education', desc: 'Digital tools for the modern learner.' },
+  { label: 'SaaS', href: '/industries/saas', desc: 'Strategy and systems that scale.' },
+  { label: 'E-commerce', href: '/industries/ecommerce', desc: 'Sell more. Retain longer.' },
+  { label: 'Brick & Mortar', href: '/industries/brick-and-mortar', desc: 'Physical business, digital future.' },
+];
+
+const pillars = [
+  {
+    icon: '<path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>',
+    title: 'Strategic Digital Consulting',
+    desc: 'We analyze, advise, and architect the systems your business needs to compete and grow. No guesswork — just clear direction backed by data.',
+  },
+  {
+    icon: '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
+    title: 'Making AI Work for Business',
+    desc: 'We don\'t just talk about AI. We implement it in ways that save real time, reduce friction, and generate measurable revenue.',
+  },
+  {
+    icon: '<path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>',
+    title: 'Creative Marketing & Lead Generation',
+    desc: 'From brand positioning to full-funnel campaigns, we build marketing engines that attract the right clients and keep them coming back.',
+  },
+];
 ---
+<BaseLayout title="Lucentra — Grow Smarter">
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content fade-up">
+        <span class="eyebrow">Growth & Modernization Partner</span>
+        <h1 class="hero-headline">
+          Transform the way<br/>
+          your business <span class="headline-accent">grows.</span>
+        </h1>
+        <p class="hero-sub">
+          Lucentra partners with businesses to fix broken systems, modernize operations,
+          and drive sustainable growth through smart technology and clear strategy.
+        </p>
+        <div class="hero-ctas fade-up delay-2">
+          <a href="/how-we-work" class="btn btn-primary">Explore Our Solutions →</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-stats fade-up delay-3">
+        <div class="hero-stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Core Pillars</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number">5</span>
+          <span class="stat-label">Industries Served</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-number">1</span>
+          <span class="stat-label">Clear Goal: Your Growth</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bg-shape" aria-hidden="true"></div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">What We Do</span>
+        <h2>Three pillars. One purpose.</h2>
+        <p class="section-sub">Every engagement draws on all three disciplines — because real growth requires strategy, technology, and marketing working together.</p>
+      </div>
+
+      <div class="pillars-grid">
+        {pillars.map((p, i) => (
+          <div class={`pillar-card fade-up delay-${i + 1}`}>
+            <div class="pillar-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={p.icon}></svg>
+            </div>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="industries-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Industries</span>
+        <h2>Built for the businesses<br/>that drive the economy.</h2>
+      </div>
+
+      <div class="industries-grid">
+        {industries.map((ind, i) => (
+          <a href={ind.href} class={`industry-card fade-up delay-${i + 1}`}>
+            <div class="industry-number">0{i + 1}</div>
+            <h3>{ind.label}</h3>
+            <p>{ind.desc}</p>
+            <span class="industry-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section class="how-section">
+    <div class="container">
+      <div class="how-grid">
+        <div class="how-text fade-up">
+          <span class="eyebrow">How We Work</span>
+          <h2>We don't just deliver. We transform.</h2>
+          <p>Most agencies hand you a deliverable and disappear. We step into your business, find what's broken, build what's missing, and stay until results are real.</p>
+          <a href="/how-we-work" class="btn btn-primary" style="margin-top: 8px;">See Our Process →</a>
+        </div>
+
+        <div class="how-steps">
+          {[
+            { step: '01', title: 'Diagnose', desc: 'We audit your current systems, strategy, and market position.' },
+            { step: '02', title: 'Design', desc: 'We build a clear roadmap tailored to your goals.' },
+            { step: '03', title: 'Deliver', desc: 'We execute — from tech implementation to campaign launch.' },
+            { step: '04', title: 'Optimize', desc: 'We measure, iterate, and improve until results compound.' },
+          ].map(s => (
+            <div class="how-step fade-up">
+              <span class="step-number">{s.step}</span>
+              <div>
+                <strong>{s.title}</strong>
+                <p>{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMITMENTS -->
+  <section class="commitments-section">
+    <div class="container">
+      <div class="section-header light">
+        <span class="eyebrow" style="color: var(--teal-mid);">Our Commitments</span>
+        <h2 style="color: white;">How we show up,<br/>every single time.</h2>
+      </div>
+
+      <div class="commitments-grid">
+        {[
+          { href: '/commitments/merit', title: 'Merit', desc: 'We earn our place. Every recommendation, strategy, and result must prove its worth — no padding, no fluff.' },
+          { href: '/commitments/opportunity', title: 'Opportunity', desc: 'We open doors. For the businesses we serve and the communities they operate in.' },
+          { href: '/commitments/responsibility', title: 'Responsibility', desc: 'We own our impact. Every decision we make carries weight — and we don\'t take that lightly.' },
+        ].map((c, i) => (
+          <a href={c.href} class={`commitment-card fade-up delay-${i + 1}`}>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+            <span class="commitment-link">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  {latestPosts.length > 0 && (
+    <section class="blog-preview-section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <span class="eyebrow">Latest Insights</span>
+            <h2>From our blog.</h2>
+          </div>
+          <a href="/blog" class="btn btn-outline">View all articles →</a>
+        </div>
+
+        <div class="grid-3">
+          {latestPosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.id.replace('.md', '')}
+              niche={post.data.niche}
+              pubDate={post.data.pubDate}
+              author={post.data.author}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CONTACT -->
+  <ContactForm />
+
+</BaseLayout>
+
+<style>
+/* Hero */
+.hero {
+  position: relative;
+  padding: 96px 0 80px;
+  overflow: hidden;
+}
+
+.hero-content { max-width: 760px; margin: 0 auto; text-align: center; }
+
+.hero-headline {
+  font-size: clamp(44px, 7vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  line-height: 1.05;
+}
+
+.headline-accent { color: var(--teal); }
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--text-muted);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.hero-stat { text-align: center; }
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--near-black);
+  line-height: 1;
+}
+
+.stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+.stat-divider { width: 1px; height: 48px; background: var(--border); }
+
+.hero-bg-shape {
+  position: absolute;
+  top: -120px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(10,171,171,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Section headers */
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-header h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 16px; }
+.section-sub { font-size: 17px; color: var(--text-muted); max-width: 540px; margin: 0 auto; }
+.section-header-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+
+/* Pillars */
+.pillars-section { background: var(--bg-alt); }
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pillar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  transition: all 0.25s;
+}
+
+.pillar-card:hover { border-color: var(--teal); box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.pillar-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--teal-light);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-dark);
+  margin-bottom: 20px;
+}
+
+.pillar-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.pillar-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
+/* Industries */
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.industry-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.industry-card:hover { border-color: var(--teal); background: var(--teal-light); box-shadow: var(--shadow); }
+
+.industry-number {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.industry-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.industry-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; flex: 1; margin: 0; }
+
+.industry-arrow {
+  display: block;
+  margin-top: 20px;
+  color: var(--teal);
+  font-size: 18px;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.industry-card:hover .industry-arrow { transform: translateX(4px); }
+
+/* How we work */
+.how-section { background: var(--bg-alt); }
+
+.how-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.how-text h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; margin-bottom: 16px; margin-top: 8px; }
+.how-text p { color: var(--text-muted); font-size: 16px; }
+
+.how-steps { display: flex; flex-direction: column; gap: 24px; }
+
+.how-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.step-number {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--teal);
+  background: var(--teal-light);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.how-step strong { display: block; font-weight: 700; color: var(--near-black); margin-bottom: 4px; }
+.how-step p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+/* Commitments */
+.commitments-section { background: var(--bg-dark); padding: var(--section-py) 0; }
+.section-header.light h2 { color: white; }
+
+.commitments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.commitment-card {
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  transition: all 0.25s;
+}
+
+.commitment-card:hover { background: rgba(10,171,171,0.1); border-color: var(--teal); transform: translateY(-2px); }
+
+.commitment-card h3 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 12px; }
+.commitment-card p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; flex: 1; margin: 0 0 24px; }
+.commitment-link { font-size: 14px; font-weight: 600; color: var(--teal-mid); transition: color 0.15s; }
+.commitment-card:hover .commitment-link { color: white; }
+
+/* Blog preview */
+.blog-preview-section { background: var(--bg-alt); }
+
+@media (max-width: 1024px) {
+  .industries-grid { grid-template-columns: repeat(3, 1fr); }
+  .pillars-grid { grid-template-columns: 1fr 1fr; }
+  .commitments-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hero-stats { gap: 24px; }
+  .how-grid { grid-template-columns: 1fr; gap: 40px; }
+  .pillars-grid, .commitments-grid, .industries-grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+</style>

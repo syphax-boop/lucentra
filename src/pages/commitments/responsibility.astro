@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+---
+<BaseLayout title="Responsibility — Lucentra Commitments" description="Responsibility means we don't give advice we wouldn't follow ourselves. It means we don't recommend tools, strategies, or systems just because they're trending or because they generate better margins for us. It means we consider the second and third-order effects of what we propose.">
+
+  <section class="commitment-hero">
+    <div class="container">
+      <a href="/" class="back-link">← Home</a>
+      <span class="eyebrow">Our Commitments</span>
+      <h1>Responsibility</h1>
+      <p class="commitment-sub">We own the consequences of our advice. Every recommendation we make is one we'd stand behind publicly.</p>
+    </div>
+  </section>
+
+  <section class="commitment-body">
+    <div class="container">
+      <div class="commitment-content">
+        <div class="commitment-main">
+          <p class="lead">Responsibility means we don't give advice we wouldn't follow ourselves. It means we don't recommend tools, strategies, or systems just because they're trending or because they generate better margins for us. It means we consider the second and third-order effects of what we propose.</p>
+          <p>In an industry where consultants often over-promise and under-deliver — or recommend expensive solutions to simple problems — we hold ourselves to a different standard. Not perfect, but honest. Not risk-free, but transparent about the risks.</p>
+        </div>
+
+        <div class="commitment-qa">
+          <h2>What this means in practice</h2>
+          <div class="qa-list">
+            <div class="qa-item">
+              <h3>How do you handle conflicts of interest?</h3>
+              <p>We disclose any relationships with vendors, tools, or platforms we recommend. We never recommend a solution because it benefits us financially if it isn't genuinely the right fit for the client.</p>
+            </div>
+            <div class="qa-item">
+              <h3>What if your advice turns out to be wrong?</h3>
+              <p>We own it. We communicate proactively, explain what happened, and work with the client to find the best path forward. Responsibility means not disappearing when things get difficult.</p>
+            </div>
+            <div class="qa-item">
+              <h3>responsibility0</h3>
+              <p>responsibility1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm />
+
+</BaseLayout>
+
+<style>
+.commitment-hero {
+  padding: 72px 0 64px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--teal); }
+.commitment-hero .eyebrow { color: var(--teal-mid); }
+.commitment-hero h1 {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  color: white;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.commitment-sub { font-size: 20px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0; }
+
+.commitment-body { padding: var(--section-py) 0; }
+.commitment-content { max-width: 800px; }
+
+.lead {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--near-black);
+  font-weight: 500;
+  margin-bottom: 1.5em;
+}
+
+.commitment-qa { margin-top: 64px; }
+.commitment-qa h2 { font-size: 28px; font-weight: 800; margin-bottom: 32px; }
+
+.qa-list { display: flex; flex-direction: column; gap: 0; }
+.qa-item {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+.qa-item:last-child { border-bottom: 1px solid var(--border); }
+.qa-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.qa-item p { color: var(--text-muted); font-size: 16px; margin: 0; }
+</style>

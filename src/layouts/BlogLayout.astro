@@ -1,0 +1,120 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  niche: string;
+  author: string;
+}
+
+const { title, description, pubDate, niche, author } = Astro.props;
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+---
+<BaseLayout title={title} description={description}>
+  <article class="blog-article">
+    <div class="container">
+      <div class="article-header">
+        <div class="article-meta">
+          <a href={`/industries/${niche}`} class="tag">{niche.replace(/-/g, ' ')}</a>
+          <span class="article-date">{formattedDate}</span>
+          <span class="article-author">By {author}</span>
+        </div>
+        <h1 class="article-title">{title}</h1>
+        <p class="article-description">{description}</p>
+      </div>
+
+      <div class="article-body">
+        <slot />
+      </div>
+
+      <div class="article-footer">
+        <a href="/blog" class="btn btn-outline">← Back to all articles</a>
+        <a href={`/industries/${niche}`} class="btn btn-primary">
+          Explore {niche.replace(/-/g, ' ')} insights →
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+.blog-article { padding: 64px 0 96px; }
+
+.article-header {
+  max-width: 760px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.article-date, .article-author {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.article-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.article-description {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.article-body {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.article-body :global(h2) {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 48px 0 16px;
+}
+
+.article-body :global(h3) {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 32px 0 12px;
+}
+
+.article-body :global(p) { margin-bottom: 1.5em; }
+
+.article-body :global(ul), .article-body :global(ol) {
+  padding-left: 24px;
+  margin-bottom: 1.5em;
+}
+
+.article-body :global(li) { margin-bottom: 8px; }
+
+.article-body :global(strong) { color: var(--near-black); font-weight: 600; }
+
+.article-footer {
+  max-width: 720px;
+  margin: 64px auto 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+</style>
