@@ -66,7 +66,7 @@ const nichePosts = allPosts
             <BlogCard
               title={post.data.title}
               description={post.data.description}
-              slug={post.slug}
+              slug={post.id.replace('.md', '')}
               niche={post.data.niche}
               pubDate={post.data.pubDate}
               author={post.data.author}

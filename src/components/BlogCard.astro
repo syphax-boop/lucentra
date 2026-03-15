@@ -14,7 +14,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 });
 ---
 
-<a href={`/blog/${slug.replace(/\.md$/, '')}`} class="blog-card">
+<a href={`/blog/${slug}`} class="blog-card">
   <div class="blog-card-meta">
     <span class="tag">{niche.replace(/-/g, ' ')}</span>
     <span class="blog-card-date">{formattedDate}</span>
