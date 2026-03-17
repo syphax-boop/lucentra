@@ -285,7 +285,31 @@ const pillars = [
 
   <!-- CONTACT -->
   <ContactForm />
+<script>
+  document.querySelectorAll('.pillar-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const cx = r.width / 2;
+      const cy = r.height / 2;
+      const rx = ((y - cy) / cy) * 8;
+      const ry = -((x - cx) / cx) * 8;
+      const px = (x / r.width) * 100;
+      const py = (y / r.height) * 100;
+      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      card.style.transition = 'transform 0.1s ease-out';
+      card.querySelector('::after');
+      card.style.setProperty('--shine-x', `${px}%`);
+      card.style.setProperty('--shine-y', `${py}%`);
+    });
 
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      card.style.transition = 'transform 0.5s ease-out';
+    });
+  });
+</script>
 </BaseLayout>
 
 <style>
@@ -412,6 +436,8 @@ const pillars = [
   border-radius: var(--radius-lg);
   padding: 36px 32px;
   transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
 }
 
 .pillar-card:hover { border-color: var(--teal); box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -558,5 +584,30 @@ const pillars = [
   .how-grid { grid-template-columns: 1fr; gap: 40px; }
   .pillars-grid, .commitments-grid, .industries-grid { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
+}
+.pillar-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(
+    circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(10,171,171,0.08) 0%,
+    rgba(180,220,220,0.12) 25%,
+    rgba(200,230,255,0.06) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.pillar-card:hover::after {
+  opacity: 1;
 }
 </style>
